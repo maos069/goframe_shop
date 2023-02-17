@@ -14,3 +14,9 @@ type RotationRes struct {
 	//g.Meta `mime:"text/html" example:"string"`
 	RotationId uint `json:"ratationId"`
 }
+
+type RotationDeleteReq struct {
+	g.Meta `path:"/backend/rotation/delete" method:"delete" tags:"Rotation" summary:"删除轮播图接口"`
+	Id     uint `v:"min:1#请选择需要删除的内容" dc:"轮播图id"`
+}
+type RotationDeleteRes struct{}

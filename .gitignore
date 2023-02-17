@@ -3,6 +3,8 @@
 .project
 .orig
 .swp
+*.exe
+*.exe~
 .idea/
 .settings/
 .vscode/
