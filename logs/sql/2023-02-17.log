@@ -1,0 +1,2 @@
+2023-02-17 21:14:28.687 [DEBU] {80eefc3be59e44173aa10e0d51ab4612} [  5 ms] [default] [shop] [rows:7  ] SHOW FULL COLUMNS FROM `rotation_info`
+2023-02-17 21:14:28.890 [DEBU] {80eefc3be59e44173aa10e0d51ab4612} [200 ms] [default] [shop] [rows:1  ] INSERT INTO `rotation_info`(`created_at`,`link`,`sort`,`pic_url`,`updated_at`) VALUES('2023-02-17 21:14:28','https://answer',1,'https://test.png','2023-02-17 21:14:28') 
