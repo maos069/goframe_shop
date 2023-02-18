@@ -5,6 +5,7 @@
 .swp
 *.exe
 *.exe~
+*.log
 .idea/
 .settings/
 .vscode/

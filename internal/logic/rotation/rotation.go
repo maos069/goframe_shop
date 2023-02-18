@@ -22,8 +22,9 @@ func New() *sRotation {
 }
 
 func (s *sRotation) Create(ctx context.Context, in model.RotationCreateInput) (out model.RotationCreateOutput, err error) {
-	if err = ghtml.SpecialCharsMapOrStruct(in); err != nil {
-		return out, err
+	// 不允许HTML代码
+	if err := ghtml.SpecialCharsMapOrStruct(in); err != nil {
+		return out,err
 	}
 	lastInsertID, err := dao.RotationInfo.Ctx(ctx).Data(in).InsertAndGetId()
 	if err != nil {
@@ -35,11 +36,29 @@ func (s *sRotation) Create(ctx context.Context, in model.RotationCreateInput) (o
 // Delete 删除
 func (s *sRotation) Delete(ctx context.Context, id uint) error {
 	return dao.RotationInfo.Transaction(ctx, func(ctx context.Context, tx gdb.TX) error {
+		
 		// 删除轮播图
 		_, err := dao.RotationInfo.Ctx(ctx).Where(g.Map{
 			dao.RotationInfo.Columns().Id: id,
 		}).Delete()
 		//可以使用.Unscoped().Delete()忽略delete_at时间属性，强制删除
+		return err
+	})
+}
+
+// Update 修改
+func (s *sRotation) Update(ctx context.Context, in model.RotationUpdateInput) error {
+	return dao.RotationInfo.Transaction(ctx, func(ctx context.Context, tx gdb.TX) error {
+		// 不允许HTML代码
+		if err := ghtml.SpecialCharsMapOrStruct(in); err != nil {
+			return err
+		}
+		_, err := dao.RotationInfo.
+			Ctx(ctx).
+			Data(in).
+			FieldsEx(dao.RotationInfo.Columns().Id).
+			Where(dao.RotationInfo.Columns().Id, in.Id).
+			Update()
 		return err
 	})
 }
